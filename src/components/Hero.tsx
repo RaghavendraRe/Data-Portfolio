@@ -60,7 +60,7 @@ const Hero: React.FC = () => {
 
                 <img
 
-                  src="/profile.jpg"
+                  src={`${import.meta.env.BASE_URL}profile.jpg`}
 
                   alt="Raghavendra Reddy"
 
