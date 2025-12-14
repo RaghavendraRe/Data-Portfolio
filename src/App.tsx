@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index';
 import NotFound from './pages/NotFound';
 
@@ -8,7 +8,7 @@ import SmoothScroll from './components/SmoothScroll';
 
 const App: React.FC = () => {
   return (
-    <Router basename={import.meta.env.BASE_URL}>
+    <Router>
       <CustomCursor />
       <SmoothScroll />
       <Routes>
