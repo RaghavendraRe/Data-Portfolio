@@ -9,6 +9,7 @@ import { ExternalLink, Github, Play, X, FolderGit2, Layers } from 'lucide-react'
 import { Project } from '../types';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import HolographicCard from './HolographicCard';
 
 const projectsData: Project[] = [
   {
@@ -325,128 +326,83 @@ const Projects: React.FC = () => {
 
           <AnimatePresence mode='popLayout'>
 
-            {filteredProjects.slice(0, visibleCount).map((project) => (
+
+
+            {filteredProjects.slice(0, visibleCount).map((project, index) => (
 
               <motion.div
-
                 key={project.id}
-
                 layout
-
-                initial={{ opacity: 0, scale: 0.9 }}
-
-                animate={{ opacity: 1, scale: 1 }}
-
+                initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-
-                transition={{ duration: 0.3 }}
-
-                className="group card-gradient rounded-2xl overflow-hidden border border-primary/20 hover:border-primary hover:glow-primary transition-all duration-500 flex flex-col h-full"
-
+                transition={{
+                  duration: 0.4,
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                className="h-full" // Removed previous styling classes as they will move to inner div or be managed by HolographicCard wrapper context if needed, but here we wrap the card
               >
+                <HolographicCard className="h-full">
+                  <div className="group card-gradient rounded-2xl overflow-hidden border border-primary/20 hover:border-primary hover:glow-primary transition-all duration-500 flex flex-col h-full bg-card"> {/* Moved classes here and ensured bg is set */}
 
-                <div className="relative h-56 overflow-hidden shrink-0 cursor-pointer" onClick={() => setSelectedProject(project)}>
-
-                  <img
-
-                    src={project.image}
-
-                    alt={project.title}
-
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
-
-                  />
-
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
-
-                  <div className="absolute top-4 left-4 bg-background/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-primary border border-primary/20 flex items-center gap-2">
-
-                    <Layers size={12} />
-
-                    {project.category}
-
-                  </div>
-
-                  {project.videoUrl && (
-
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-
-                      <div className="w-14 h-14 bg-primary/90 rounded-full flex items-center justify-center text-primary-foreground shadow-lg transform scale-90 group-hover:scale-100 transition-transform">
-
-                        <Play fill="currentColor" size={24} className="ml-1" />
-
+                    {/* ... Card Content ... */}
+                    <div className="relative h-56 overflow-hidden shrink-0 cursor-pointer" onClick={() => setSelectedProject(project)}>
+                      {/* ... image content ... */}
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                      />
+                      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+                      <div className="absolute top-4 left-4 bg-background/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-primary border border-primary/20 flex items-center gap-2">
+                        <Layers size={12} />
+                        {project.category}
                       </div>
-
+                      {project.videoUrl && (
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className="w-14 h-14 bg-primary/90 rounded-full flex items-center justify-center text-primary-foreground shadow-lg transform scale-90 group-hover:scale-100 transition-transform">
+                            <Play fill="currentColor" size={24} className="ml-1" />
+                          </div>
+                        </div>
+                      )}
                     </div>
 
-                  )}
-
-                </div>
-
-                <div className="p-6 flex flex-col flex-grow">
-
-                  <div className="flex items-center gap-2 mb-3">
-
-                    <FolderGit2 size={18} className="text-primary" />
-
-                    <h3 className="text-xl font-heading font-semibold text-foreground group-hover:text-primary transition-colors cursor-pointer" onClick={() => setSelectedProject(project)}>
-
-                      {project.title}
-
-                    </h3>
-
+                    <div className="p-6 flex flex-col flex-grow">
+                      <div className="flex items-center gap-2 mb-3">
+                        <FolderGit2 size={18} className="text-primary" />
+                        <h3 className="text-xl font-heading font-semibold text-foreground group-hover:text-primary transition-colors cursor-pointer" onClick={() => setSelectedProject(project)}>
+                          {project.title}
+                        </h3>
+                      </div>
+                      <p className="text-muted-foreground text-sm mb-6 leading-relaxed line-clamp-3">
+                        {project.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-6 mt-auto">
+                        {project.technologies.map((tech) => (
+                          <span key={tech} className="text-[10px] px-2 py-1 rounded bg-white/5 text-muted-foreground border border-white/5 font-mono">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex gap-4 pt-4 border-t border-border">
+                        {project.videoUrl && (
+                          <button onClick={() => setSelectedProject(project)} className="flex items-center gap-2 text-sm font-bold text-primary hover:text-foreground transition-colors">
+                            <Play size={14} />
+                            Watch Demo
+                          </button>
+                        )}
+                        {project.github && (
+                          <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors ml-auto">
+                            <Github className="w-4 h-4" />
+                            Code
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </div>
-
-                  <p className="text-muted-foreground text-sm mb-6 leading-relaxed line-clamp-3">
-
-                    {project.description}
-
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 mb-6 mt-auto">
-
-                    {project.technologies.map((tech) => (
-
-                      <span key={tech} className="text-[10px] px-2 py-1 rounded bg-white/5 text-muted-foreground border border-white/5 font-mono">
-
-                        {tech}
-
-                      </span>
-
-                    ))}
-
-                  </div>
-
-                  <div className="flex gap-4 pt-4 border-t border-border">
-
-                    {project.videoUrl && (
-
-                      <button onClick={() => setSelectedProject(project)} className="flex items-center gap-2 text-sm font-bold text-primary hover:text-foreground transition-colors">
-
-                        <Play size={14} />
-
-                        Watch Demo
-
-                      </button>
-
-                    )}
-
-                    {project.github && (
-
-                      <a href={project.github} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors ml-auto">
-
-                        <Github className="w-4 h-4" />
-
-                        Code
-
-                      </a>
-
-                    )}
-
-                  </div>
-
-                </div>
-
+                </HolographicCard>
               </motion.div>
 
             ))}
@@ -514,7 +470,7 @@ const Projects: React.FC = () => {
                     )}
                   </div>
 
-                  <div className="p-8">
+                  <div className="p-5 md:p-8">
                     <div className="flex items-center gap-3 mb-2">
                       <span className="text-xs font-bold text-primary uppercase tracking-widest">{selectedProject.category}</span>
                       <div className="h-px flex-1 bg-border"></div>

@@ -25,7 +25,7 @@ const Contact: React.FC = () => {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 card-gradient p-8 md:p-12 rounded-3xl border border-primary/20 glow-primary">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 card-gradient p-6 md:p-12 rounded-3xl border border-primary/20 glow-primary">
 
           <div className="flex flex-col justify-center space-y-8">
 

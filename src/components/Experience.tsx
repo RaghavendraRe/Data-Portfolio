@@ -66,7 +66,7 @@ const Experience: React.FC = () => {
 
         <div className="max-w-5xl mx-auto mt-16">
 
-          <div className="relative border-l-2 border-border ml-3 md:ml-6 pl-8 md:pl-12 py-4 space-y-12">
+          <div className="relative border-l-2 border-border ml-4 md:ml-3 md:ml-6 pl-8 md:pl-12 py-4 space-y-12">
 
             {experiences.map((exp, index) => (
 
@@ -74,13 +74,18 @@ const Experience: React.FC = () => {
 
                 key={exp.id}
 
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -50 }}
 
                 whileInView={{ opacity: 1, x: 0 }}
 
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                transition={{
+                  delay: index * 0.2,
+                  duration: 0.6,
+                  type: "spring",
+                  stiffness: 50
+                }}
 
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-100px" }}
 
                 className="relative"
 

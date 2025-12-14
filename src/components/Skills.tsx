@@ -56,15 +56,24 @@ const Skills: React.FC = () => {
 
                 key={index}
 
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
 
                 whileInView={{ opacity: 1, y: 0 }}
 
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                transition={{
+                  delay: index * 0.1,
+                  duration: 0.5,
+                  type: "spring",
+                  stiffness: 50
+                }}
 
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-50px" }}
 
-                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileHover={{
+                  scale: 1.1,
+                  rotate: 5,
+                  transition: { type: "spring", stiffness: 300 }
+                }}
 
                 className="flex flex-col items-center gap-3 group"
 
@@ -96,7 +105,7 @@ const Skills: React.FC = () => {
 
             { title: 'Programming Languages', items: ['Python', 'SQL', 'VBA', 'DAX'] },
 
-            { title: 'Tools & Platforms', items: ['Power BI', 'Excel', 'Git', 'Databricks'] },
+            { title: 'Tools & Platforms', items: ['Power BI', 'Excel', 'Git', 'Databricks', 'Amplitude'] },
 
             { title: 'Concepts', items: ['Data Modeling', 'ETL', 'Statistical Analysis', 'Forecasting'] }
 

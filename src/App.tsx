@@ -3,9 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index';
 import NotFound from './pages/NotFound';
 
+import CustomCursor from './components/CustomCursor';
+import SmoothScroll from './components/SmoothScroll';
+
 const App: React.FC = () => {
   return (
     <Router basename={import.meta.env.BASE_URL}>
+      <CustomCursor />
+      <SmoothScroll />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="*" element={<NotFound />} />

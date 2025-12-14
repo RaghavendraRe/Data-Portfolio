@@ -12,6 +12,12 @@ All colors MUST be HSL.
 
 */
 
+@media (min-width: 768px) {
+  * {
+    cursor: none !important;
+  }
+}
+
 @layer base {
 
   :root {

@@ -1,15 +1,11 @@
 import React from 'react';
 
-
-
-import { motion } from 'framer-motion';
-
-import { MapPin, Briefcase, Mail, Github, Linkedin, ArrowDown, LayoutDashboard, Database, Code, Sparkles, Lightbulb } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Spotlight from './Spotlight';
+import { MapPin, Briefcase, Mail, Github, Linkedin, ArrowDown, ChevronDown, FileText, LayoutDashboard, Database, Code, Sparkles, Lightbulb } from 'lucide-react';
 
 const roles = [
-
   "Data Analyst",
-
   "Power BI Developer",
 
   "SQL Developer",
@@ -23,16 +19,22 @@ const roles = [
 const tickerRoles = [...roles, ...roles, ...roles, ...roles];
 
 const Hero: React.FC = () => {
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 500], [0, 100]);
+  const y2 = useTransform(scrollY, [0, 500], [0, -100]);
 
   return (
 
-    <section id="home" className="min-h-screen flex flex-col items-center justify-center pt-32 pb-20 relative overflow-hidden">
+    <section id="home" className="min-h-[90vh] md:min-h-screen flex flex-col items-center justify-center pt-24 md:pt-32 pb-20 relative overflow-hidden">
 
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[120px] pointer-events-none animate-pulse-glow"></div>
+      <Spotlight />
+
+      {/* Background Elements */}
+      {/* <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[120px] pointer-events-none animate-pulse-glow"></div>
 
       <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-secondary/15 rounded-full blur-[120px] pointer-events-none animate-pulse-glow" style={{ animationDelay: '1.5s' }}></div>
 
-      <div className="absolute top-[40%] right-[20%] w-[30%] h-[30%] bg-accent/10 rounded-full blur-[100px] pointer-events-none animate-float"></div>
+      <div className="absolute top-[40%] right-[20%] w-[30%] h-[30%] bg-accent/10 rounded-full blur-[100px] pointer-events-none animate-float"></div> */}
 
       <div className="container mx-auto px-6 z-10">
 
@@ -238,11 +240,11 @@ const Hero: React.FC = () => {
 
               ].map((item, i) => (
 
-                <li key={i} className="flex items-center justify-center gap-3 text-foreground/90 group p-2 hover:bg-white/5 rounded-lg transition-colors text-center">
+                <li key={i} className="flex items-center justify-start md:justify-center gap-3 text-foreground/90 group p-2 hover:bg-white/5 rounded-lg transition-colors text-left md:text-center">
 
                   <item.icon className="text-muted-foreground group-hover:text-primary transition-colors shrink-0" size={24} />
 
-                  <span className="group-hover:text-foreground transition-colors text-lg font-medium">{item.text}</span>
+                  <span className="group-hover:text-foreground transition-colors text-xs md:text-lg font-medium">{item.text}</span>
 
                 </li>
 

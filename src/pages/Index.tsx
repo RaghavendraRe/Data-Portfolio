@@ -17,6 +17,7 @@ import Experience from '@/components/Experience';
 import Certificates from '@/components/Certificates';
 
 import AboutMe from '@/components/AboutMe';
+import Resume from '@/components/Resume';
 
 const Index = () => {
 
@@ -39,6 +40,8 @@ const Index = () => {
         <Certificates />
 
         <AboutMe />
+
+        <Resume />
 
         <Contact />
 
